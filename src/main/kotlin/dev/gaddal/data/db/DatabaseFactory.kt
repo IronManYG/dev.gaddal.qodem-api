@@ -2,6 +2,10 @@ package dev.gaddal.data.db
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodInventoryTable
+import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodProcessingTable
+import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodTestingTable
+import dev.gaddal.data.db.schemas.blood_unit_lifecycle.Transfusions
 import dev.gaddal.data.db.schemas.core_donation_management.*
 import dev.gaddal.data.db.schemas.medical_and_regulatory.*
 import kotlinx.coroutines.Dispatchers
@@ -43,7 +47,12 @@ object DatabaseFactory {
                 PastIllnessesTable,
                 SurgeriesTable,
                 AllergiesTable,
-                EligibilityCriteriaTable
+                EligibilityCriteriaTable,
+                // Blood Unit Lifecycle
+                BloodInventoryTable,
+                BloodTestingTable,
+                BloodProcessingTable,
+                Transfusions
             )
 
             // Inserting dummy data
