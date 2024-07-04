@@ -3,6 +3,7 @@ package dev.gaddal.data.db
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import dev.gaddal.data.db.schemas.core_donation_management.*
+import dev.gaddal.data.db.schemas.medical_and_regulatory.*
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -36,7 +37,13 @@ object DatabaseFactory {
                 OperationInfoTable,
                 DonationRecordsTable,
                 DonationTrackingTable,
-                ReviewsTable
+                ReviewsTable,
+                // Medical and Regulatory
+                MedicalHistoryTable,
+                PastIllnessesTable,
+                SurgeriesTable,
+                AllergiesTable,
+                EligibilityCriteriaTable
             )
 
             // Inserting dummy data
