@@ -6,9 +6,9 @@ import dev.gaddal.data.db.schemas.core_donation_management.UserNameTable.id
 import dev.gaddal.data.db.schemas.core_donation_management.UserNameTable.last_name
 import dev.gaddal.data.db.schemas.core_donation_management.UserNameTable.middle_name
 import dev.gaddal.data.db.schemas.core_donation_management.UserNameTable.user_id
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the users_name table in a PostgresSQL database, capturing the full name of donors.
@@ -21,13 +21,10 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property last_name User's last name.
  * @property createdAt Timestamp of the creation date of the username record.
  */
-object UserNameTable : Table("users_name") {
-    val id = integer("id").autoIncrement()
+object UserNameTable : IntIdTable("users_name") {
     val user_id = integer("user_id").references(UserTable.id)
     val first_name = varchar("first_name", 255)
     val middle_name = varchar("middle_name", 255).nullable()
     val last_name = varchar("last_name", 255)
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

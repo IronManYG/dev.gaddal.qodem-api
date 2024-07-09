@@ -1,16 +1,16 @@
 package dev.gaddal.data.db.schemas.communities_and_campaigns
 
-import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunitiesTable.createdAt
-import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunitiesTable.description
-import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunitiesTable.id
-import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunitiesTable.image_url
-import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunitiesTable.is_public
-import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunitiesTable.location
-import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunitiesTable.name
-import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunitiesTable.type
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.javatime.datetime
-import java.time.LocalDateTime
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable.createdAt
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable.description
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable.id
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable.image_url
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable.is_public
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable.location
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable.name
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable.type
+import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the communities table in a PostgresSQL database, storing basic identifying information for donor communities or groups.
@@ -25,15 +25,12 @@ import java.time.LocalDateTime
  * @property is_public Indicates if the community is open to everyone or requires approval to join; '0' for private, '1' for public.
  * @property createdAt Timestamp of the creation date of the community record.
  */
-object CommunitiesTable : Table("communities") {
-    val id = integer("id").autoIncrement()
+object CommunityTable : IntIdTable("communities") {
     val name = varchar("name", 255)
     val description = text("description")
     val location = varchar("location", 255)
     val type = varchar("type", 100)
     val image_url = varchar("image_url", 255).nullable()
     val is_public = bool("is_public").clientDefault { true }
-    val createdAt = datetime("created_at").clientDefault { LocalDateTime.now() }
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

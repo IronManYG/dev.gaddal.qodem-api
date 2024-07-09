@@ -4,9 +4,9 @@ import dev.gaddal.data.db.schemas.medical_and_regulatory.SurgeriesTable.createdA
 import dev.gaddal.data.db.schemas.medical_and_regulatory.SurgeriesTable.id
 import dev.gaddal.data.db.schemas.medical_and_regulatory.SurgeriesTable.medical_history_id
 import dev.gaddal.data.db.schemas.medical_and_regulatory.SurgeriesTable.name
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the surgeries table in a PostgresSQL database, documenting surgical procedures the user has undergone.
@@ -17,11 +17,8 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property name Name or description of the surgery.
  * @property createdAt Timestamp of the creation date of the surgery record.
  */
-object SurgeriesTable : Table("surgeries") {
-    val id = integer("id").autoIncrement()
+object SurgeriesTable : IntIdTable("surgeries") {
     val medical_history_id = integer("medical_history_id").references(MedicalHistoryTable.id)
     val name = varchar("name", 255)
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

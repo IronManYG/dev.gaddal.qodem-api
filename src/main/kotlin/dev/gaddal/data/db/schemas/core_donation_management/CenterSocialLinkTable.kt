@@ -6,9 +6,9 @@ import dev.gaddal.data.db.schemas.core_donation_management.CenterSocialLinkTable
 import dev.gaddal.data.db.schemas.core_donation_management.CenterSocialLinkTable.link
 import dev.gaddal.data.db.schemas.core_donation_management.CenterSocialLinkTable.platform
 import dev.gaddal.data.db.schemas.core_donation_management.enums.SocialMediaPlatform
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the center_social_links table in a PostgresSQL database, optimized for linking to social media profiles.
@@ -20,12 +20,9 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property link URL of the social media profile, ensuring easy access to the center's online social media presence.
  * @property createdAt Timestamp of the creation date of the social media link record.
  */
-object CenterSocialLinkTable : Table("center_social_links") {
-    val id = integer("id").autoIncrement()
+object CenterSocialLinkTable : IntIdTable("center_social_links") {
     val donation_center_id = integer("donation_center_id").references(DonationCenterTable.id)
     val platform = enumerationByName("platform", 50, SocialMediaPlatform::class)
     val link = varchar("link", 255)
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

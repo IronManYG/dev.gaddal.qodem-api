@@ -5,9 +5,9 @@ import dev.gaddal.data.db.schemas.badges_and_achievements.BadgeTable.description
 import dev.gaddal.data.db.schemas.badges_and_achievements.BadgeTable.id
 import dev.gaddal.data.db.schemas.badges_and_achievements.BadgeTable.image_url
 import dev.gaddal.data.db.schemas.badges_and_achievements.BadgeTable.name
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.javatime.datetime
-import java.time.LocalDateTime
+import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the badges table in a PostgresSQL database, storing digital icons that symbolize achievements within the blood donation system.
@@ -19,12 +19,9 @@ import java.time.LocalDateTime
  * @property image_url URL or name of the badge's image.
  * @property createdAt Timestamp of the creation date of the badge record.
  */
-object BadgeTable : Table("badges") {
-    val id = integer("id").autoIncrement()
+object BadgeTable : IntIdTable("badges") {
     val name = varchar("name", 255)
     val description = text("description")
     val image_url = varchar("image_url", 255)
-    val createdAt = datetime("created_at").clientDefault { LocalDateTime.now() }
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

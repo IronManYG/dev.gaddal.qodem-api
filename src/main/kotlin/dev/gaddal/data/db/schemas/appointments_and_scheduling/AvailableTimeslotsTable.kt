@@ -6,7 +6,7 @@ import dev.gaddal.data.db.schemas.appointments_and_scheduling.AvailableTimeslots
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.AvailableTimeslotsTable.id
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.AvailableTimeslotsTable.start_datetime
 import dev.gaddal.data.db.schemas.core_donation_management.DonationCenterTable
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
 import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
@@ -20,12 +20,9 @@ import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
  * @property end_datetime End date and time of the available slot, stored as a UNIX timestamp.
  * @property createdAt Timestamp of the creation date of the timeslot record.
  */
-object AvailableTimeslotsTable : Table("available_timeslots") {
-    val id = integer("id").autoIncrement()
+object AvailableTimeslotsTable : IntIdTable("available_timeslots") {
     val donation_center_id = integer("donation_center_id").references(DonationCenterTable.id)
     val start_datetime = timestampWithTimeZone("start_datetime")
     val end_datetime = timestampWithTimeZone("end_datetime")
     val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
 }

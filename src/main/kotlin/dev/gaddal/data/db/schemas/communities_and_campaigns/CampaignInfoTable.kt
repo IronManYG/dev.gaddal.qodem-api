@@ -11,9 +11,9 @@ import dev.gaddal.data.db.schemas.communities_and_campaigns.CampaignInfoTable.st
 import dev.gaddal.data.db.schemas.communities_and_campaigns.CampaignInfoTable.target_goal
 import dev.gaddal.data.db.schemas.communities_and_campaigns.CampaignInfoTable.theme
 import dev.gaddal.data.db.schemas.core_donation_management.DonationCenterTable
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.javatime.datetime
-import java.time.LocalDateTime
+import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the campaign_info table in a PostgresSQL database, storing core information and details about blood donation campaigns.
@@ -30,17 +30,14 @@ import java.time.LocalDateTime
  * @property image_url Optional URL link to a banner, logo, or image representing the campaign.
  * @property createdAt Timestamp of the creation date of the campaign record.
  */
-object CampaignInfoTable : Table("campaign_info") {
-    val id = integer("id").autoIncrement()
+object CampaignInfoTable : IntIdTable("campaign_info") {
     val donation_center_id = integer("donation_center_id").references(DonationCenterTable.id)
     val name = varchar("name", 255)
     val description = text("description")
-    val start_timestamp = long("start_timestamp")  // Using long to store UNIX timestamp
-    val end_timestamp = long("end_timestamp")  // Using long to store UNIX timestamp
+    val start_timestamp = timestampWithTimeZone("start_timestamp")
+    val end_timestamp = timestampWithTimeZone("end_timestamp")
     val target_goal = integer("target_goal").nullable()
     val theme = varchar("theme", 255).nullable()
     val image_url = varchar("image_url", 255).nullable()
-    val createdAt = datetime("created_at").clientDefault { LocalDateTime.now() }
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

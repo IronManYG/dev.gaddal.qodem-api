@@ -4,9 +4,9 @@ import dev.gaddal.data.db.schemas.medical_and_regulatory.AllergiesTable.createdA
 import dev.gaddal.data.db.schemas.medical_and_regulatory.AllergiesTable.id
 import dev.gaddal.data.db.schemas.medical_and_regulatory.AllergiesTable.medical_history_id
 import dev.gaddal.data.db.schemas.medical_and_regulatory.AllergiesTable.name
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the allergies table in a PostgresSQL database, documenting specific allergies the user has.
@@ -17,11 +17,8 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property name Name of the allergen.
  * @property createdAt Timestamp of the creation date of the allergen record.
  */
-object AllergiesTable : Table("allergies") {
-    val id = integer("id").autoIncrement()
+object AllergiesTable : IntIdTable("allergies") {
     val medical_history_id = integer("medical_history_id").references(MedicalHistoryTable.id)
     val name = varchar("name", 255)
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

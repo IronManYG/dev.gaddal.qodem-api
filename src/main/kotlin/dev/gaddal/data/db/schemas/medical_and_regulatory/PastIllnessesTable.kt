@@ -4,9 +4,9 @@ import dev.gaddal.data.db.schemas.medical_and_regulatory.PastIllnessesTable.crea
 import dev.gaddal.data.db.schemas.medical_and_regulatory.PastIllnessesTable.id
 import dev.gaddal.data.db.schemas.medical_and_regulatory.PastIllnessesTable.medical_history_id
 import dev.gaddal.data.db.schemas.medical_and_regulatory.PastIllnessesTable.name
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the past_illnesses table in a PostgresSQL database, documenting past illnesses of a user that could impact their eligibility to donate blood.
@@ -17,11 +17,8 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property name Name of the illness.
  * @property createdAt Timestamp of the creation date of the illness record.
  */
-object PastIllnessesTable : Table("past_illnesses") {
-    val id = integer("id").autoIncrement()
+object PastIllnessesTable : IntIdTable("past_illnesses") {
     val medical_history_id = integer("medical_history_id").references(MedicalHistoryTable.id)
     val name = varchar("name", 255)
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

@@ -5,9 +5,9 @@ import dev.gaddal.data.db.schemas.medical_and_regulatory.MedicalHistoryTable.cre
 import dev.gaddal.data.db.schemas.medical_and_regulatory.MedicalHistoryTable.id
 import dev.gaddal.data.db.schemas.medical_and_regulatory.MedicalHistoryTable.other_events
 import dev.gaddal.data.db.schemas.medical_and_regulatory.MedicalHistoryTable.user_id
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the medical_history table in a PostgresSQL database, capturing the overall medical history of a donor.
@@ -18,11 +18,8 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property other_events Textual description of other relevant medical events or notes.
  * @property createdAt Timestamp of the creation date of the medical history record.
  */
-object MedicalHistoryTable : Table("medical_history") {
-    val id = integer("id").autoIncrement()
+object MedicalHistoryTable : IntIdTable("medical_history") {
     val user_id = integer("user_id").references(UserTable.id)
     val other_events = text("other_events")
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

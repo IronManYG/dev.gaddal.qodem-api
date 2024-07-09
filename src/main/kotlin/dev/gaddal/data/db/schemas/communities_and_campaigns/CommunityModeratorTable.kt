@@ -1,11 +1,12 @@
 package dev.gaddal.data.db.schemas.communities_and_campaigns
 
 import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityModeratorTable.community_id
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityModeratorTable.createdAt
 import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityModeratorTable.user_id
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.javatime.datetime
-import java.time.LocalDateTime
+import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the community_moderators table in a PostgresSQL database, linking users with elevated privileges to specific communities.
@@ -16,9 +17,9 @@ import java.time.LocalDateTime
  * @property createdAt Timestamp of when the user became a moderator of the community.
  */
 object CommunityModeratorTable : Table("community_moderators") {
-    val community_id = integer("community_id").references(CommunitiesTable.id)
+    val community_id = integer("community_id").references(CommunityTable.id)
     val user_id = integer("user_id").references(UserTable.id)
-    val createdAt = datetime("created_at").clientDefault { LocalDateTime.now() }
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 
     // Composite primary key to ensure each pair is unique
     override val primaryKey = PrimaryKey(community_id, user_id, name = "pk_community_moderators")

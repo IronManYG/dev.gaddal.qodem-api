@@ -6,9 +6,8 @@ import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentReminde
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentRemindersTable.reminder_type
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentRemindersTable.scheduled_datetime
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.enums.ReminderType
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
 import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
@@ -21,12 +20,9 @@ import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
  * @property scheduled_datetime Timestamp for when the reminder is scheduled to be sent.
  * @property createdAt Timestamp of the creation date of the reminder record.
  */
-object AppointmentRemindersTable : Table("appointment_reminders") {
-    val id = integer("id").autoIncrement()
+object AppointmentRemindersTable : IntIdTable("appointment_reminders") {
     val appointment_id = integer("appointment_id").references(AppointmentsTable.id)
-    val reminder_type = enumerationByName("reminder_type", 50, ReminderType::class).default(ReminderType.SMS)
+    val reminder_type = enumerationByName("reminder_type", 25, ReminderType::class).default(ReminderType.SMS)
     val scheduled_datetime = timestampWithTimeZone("scheduled_datetime")
     val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
 }

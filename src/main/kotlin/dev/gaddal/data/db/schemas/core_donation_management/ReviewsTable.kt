@@ -8,9 +8,9 @@ import dev.gaddal.data.db.schemas.core_donation_management.ReviewsTable.donor_id
 import dev.gaddal.data.db.schemas.core_donation_management.ReviewsTable.id
 import dev.gaddal.data.db.schemas.core_donation_management.ReviewsTable.is_anonymous
 import dev.gaddal.data.db.schemas.core_donation_management.ReviewsTable.rating
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the reviews table in a PostgresSQL database, storing donor ratings and comments on their donation experience.
@@ -25,15 +25,12 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property datetime Date and time when the review was posted.
  * @property createdAt Timestamp of the creation date of the review record.
  */
-object ReviewsTable : Table("reviews") {
-    val id = integer("id").autoIncrement()
+object ReviewsTable : IntIdTable("reviews") {
     val donor_id = integer("donor_id").references(UserTable.id)
     val donation_center_id = integer("donation_center_id").references(DonationCenterTable.id)
     val is_anonymous = bool("is_anonymous").clientDefault { false }
     val rating = integer("rating").check { it greaterEq 0; it lessEq 5 }
     val comment = varchar("comment", 1000).nullable()
-    val datetime = datetime("date")
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val datetime = timestampWithTimeZone("date_time").defaultExpression(CurrentTimestamp())
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

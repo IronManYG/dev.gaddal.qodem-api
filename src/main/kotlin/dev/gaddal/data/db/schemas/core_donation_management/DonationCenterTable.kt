@@ -11,9 +11,9 @@ import dev.gaddal.data.db.schemas.core_donation_management.DonationCenterTable.l
 import dev.gaddal.data.db.schemas.core_donation_management.DonationCenterTable.state
 import dev.gaddal.data.db.schemas.core_donation_management.DonationCenterTable.street_address
 import dev.gaddal.data.db.schemas.core_donation_management.DonationCenterTable.zip_code
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 
 /**
@@ -32,8 +32,7 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property zip_code Postal code for the donation center, crucial for local searches and logistics.
  * @property createdAt Timestamp of the creation date of the donation center record.
  */
-object DonationCenterTable : Table("donation_centers") {
-    val id = integer("id").autoIncrement()
+object DonationCenterTable : IntIdTable("donation_centers") {
     val donation_center_type_id = integer("donation_center_type_id").references(DonationCenterTypeTable.id)
     val city = varchar("city", 255)
     val state = varchar("state", 255)
@@ -43,7 +42,5 @@ object DonationCenterTable : Table("donation_centers") {
     val street_address = varchar("street_address", 255)
     val address_line2 = varchar("address_line2", 255).nullable()
     val zip_code = varchar("zip_code", 20)
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

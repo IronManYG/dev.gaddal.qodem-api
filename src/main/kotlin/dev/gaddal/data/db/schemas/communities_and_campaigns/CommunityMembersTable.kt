@@ -5,8 +5,8 @@ import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityMembersTabl
 import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityMembersTable.user_id
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable
 import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.javatime.datetime
-import java.time.LocalDateTime
+import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the community_members table in a PostgresSQL database, linking users (donors) to specific communities.
@@ -17,9 +17,9 @@ import java.time.LocalDateTime
  * @property createdAt Timestamp of when the user joined the community.
  */
 object CommunityMembersTable : Table("community_members") {
-    val community_id = integer("community_id").references(CommunitiesTable.id)
+    val community_id = integer("community_id").references(CommunityTable.id)
     val user_id = integer("user_id").references(UserTable.id)
-    val createdAt = datetime("created_at").clientDefault { LocalDateTime.now() }
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 
     // Composite primary key to ensure each pair is unique
     override val primaryKey = PrimaryKey(community_id, user_id, name = "pk_community_members")

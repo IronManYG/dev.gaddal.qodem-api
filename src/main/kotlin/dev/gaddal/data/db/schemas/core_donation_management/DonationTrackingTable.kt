@@ -7,9 +7,9 @@ import dev.gaddal.data.db.schemas.core_donation_management.DonationTrackingTable
 import dev.gaddal.data.db.schemas.core_donation_management.DonationTrackingTable.id
 import dev.gaddal.data.db.schemas.core_donation_management.DonationTrackingTable.received_datetime
 import dev.gaddal.data.db.schemas.core_donation_management.DonationTrackingTable.status
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the donation_tracking table in a PostgreSQL database, tracking the journey of a blood unit from collection to transfusion.
@@ -23,14 +23,11 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property status Current status of the donation process (e.g., 'collected', 'processed', 'ready for dispatch').
  * @property createdAt Timestamp of the creation date of the donation tracking record.
  */
-object DonationTrackingTable : Table("donation_tracking") {
-    val id = integer("id").autoIncrement()
+object DonationTrackingTable : IntIdTable("donation_tracking") {
     val donation_record_id = integer("donation_record_id").references(DonationRecordsTable.id)
     val blood_unit_id = varchar("blood_unit_id", 120)
-    val collection_datetime = datetime("collection_datetime")
-    val received_datetime = datetime("received_datetime")
+    val collection_datetime = timestampWithTimeZone("collection_datetime")
+    val received_datetime = timestampWithTimeZone("received_datetime")
     val status = varchar("status", 255)
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

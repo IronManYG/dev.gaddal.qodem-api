@@ -6,10 +6,12 @@ import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodTestingTable.id
 import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodTestingTable.test_datetime
 import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodTestingTable.test_result
 import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodTestingTable.test_type
+import dev.gaddal.data.db.schemas.blood_unit_lifecycle.enums.TestResult
+import dev.gaddal.data.db.schemas.blood_unit_lifecycle.enums.TestType
 import dev.gaddal.data.db.schemas.core_donation_management.DonationTrackingTable
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the blood_testing table in a PostgresSQL database, storing the results of various tests performed on each donated blood unit.
@@ -22,13 +24,10 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property test_datetime Timestamp for when the test was performed.
  * @property createdAt Timestamp of the creation date of the blood testing record.
  */
-object BloodTestingTable : Table("blood_testing") {
-    val id = integer("id").autoIncrement()
+object BloodTestingTable : IntIdTable("blood_testing") {
     val donation_tracking_id = integer("donation_tracking_id").references(DonationTrackingTable.id)
-    val test_type = varchar("test_type", 255)
-    val test_result = varchar("test_result", 50)
-    val test_datetime = long("test_datetime")  // Using long to store UNIX timestamp
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val test_type = enumerationByName("test_type", 50, TestType::class)
+    val test_result = enumerationByName("test_result", 50, TestResult::class)
+    val test_datetime = timestampWithTimeZone("test_datetime")
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

@@ -2,10 +2,20 @@ package dev.gaddal.data.db
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentRemindersTable
+import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentsTable
+import dev.gaddal.data.db.schemas.appointments_and_scheduling.AvailableTimeslotsTable
+import dev.gaddal.data.db.schemas.appointments_and_scheduling.WaitlistTable
+import dev.gaddal.data.db.schemas.badges_and_achievements.BadgeTable
+import dev.gaddal.data.db.schemas.badges_and_achievements.UserBadgeTable
 import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodInventoryTable
 import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodProcessingTable
 import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodTestingTable
 import dev.gaddal.data.db.schemas.blood_unit_lifecycle.Transfusions
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CampaignInfoTable
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityMembersTable
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityModeratorTable
+import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable
 import dev.gaddal.data.db.schemas.core_donation_management.*
 import dev.gaddal.data.db.schemas.medical_and_regulatory.*
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +62,22 @@ object DatabaseFactory {
                 BloodInventoryTable,
                 BloodTestingTable,
                 BloodProcessingTable,
-                Transfusions
+                Transfusions,
+                // Appointments and Scheduling
+                AppointmentsTable,
+                AvailableTimeslotsTable,
+                AppointmentRemindersTable,
+                WaitlistTable,
+
+                // Communities and Campaigns
+                CommunityTable,
+                CommunityMembersTable,
+                CommunityModeratorTable,
+                CampaignInfoTable,
+
+                // Badges and Achievements
+                BadgeTable,
+                UserBadgeTable
             )
 
             // Inserting dummy data

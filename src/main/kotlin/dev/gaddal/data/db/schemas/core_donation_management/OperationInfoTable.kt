@@ -7,9 +7,9 @@ import dev.gaddal.data.db.schemas.core_donation_management.OperationInfoTable.ga
 import dev.gaddal.data.db.schemas.core_donation_management.OperationInfoTable.id
 import dev.gaddal.data.db.schemas.core_donation_management.OperationInfoTable.workingDays
 import dev.gaddal.data.db.schemas.core_donation_management.OperationInfoTable.workingHours
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the operation_info table in a PostgresSQL database, containing operational details for donation centers.
@@ -23,14 +23,11 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property donorLimit Maximum number of donors the center can handle per day or per timeslot.
  * @property createdAt Timestamp of the creation date of the operation information record.
  */
-object OperationInfoTable : Table("operation_info") {
-    val id = integer("id").autoIncrement()
+object OperationInfoTable : IntIdTable("operation_info") {
     val donation_center_id = integer("donation_center_id").references(DonationCenterTable.id)
     val workingHours = varchar("workingHours", 255)
     val workingDays = varchar("workingDays", 255)
     val gapBetweenAppointment = integer("gapBetweenAppointment")
     val donorLimit = integer("donorLimit")
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

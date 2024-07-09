@@ -7,10 +7,11 @@ import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodInventoryTable.donat
 import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodInventoryTable.id
 import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodInventoryTable.inventory_update_timestamp
 import dev.gaddal.data.db.schemas.blood_unit_lifecycle.BloodInventoryTable.volume
+import dev.gaddal.data.db.schemas.blood_unit_lifecycle.enums.BloodType
 import dev.gaddal.data.db.schemas.core_donation_management.DonationCenterTable
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
  * Represents the blood_inventory table in a PostgreSQL database, managing the current supply of different blood types and products at each donation center.
@@ -24,14 +25,13 @@ import org.jetbrains.exposed.sql.kotlin.datetime.datetime
  * @property inventory_update_timestamp Timestamp for tracking updates to the inventory (e.g., receipt, use, expiration).
  * @property createdAt Timestamp of the creation date of the blood inventory record.
  */
-object BloodInventoryTable : Table("blood_inventory") {
-    val id = integer("id").autoIncrement()
+object BloodInventoryTable : IntIdTable("blood_inventory") {
     val donation_center_id = integer("donation_center_id").references(DonationCenterTable.id)
-    val blood_type = varchar("blood_type", 50)
+    val blood_type = enumerationByName("blood_type", 15, BloodType::class)
     val amount = integer("amount")
     val volume = float("volume")
-    val inventory_update_timestamp = long("inventory_update_timestamp")  // Using long to store UNIX timestamp
-    val createdAt = datetime("created_at").defaultExpression(CurrentTimestamp())
-
-    override val primaryKey = PrimaryKey(id)
+    val inventory_update_timestamp = timestampWithTimeZone("inventory_update_timestamp")
+    val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }
+
+
