@@ -31,6 +31,6 @@ object CommunityTable : IntIdTable("communities") {
     val location = varchar("location", 255)
     val type = varchar("type", 100)
     val image_url = varchar("image_url", 255).nullable()
-    val is_public = bool("is_public").clientDefault { true }
+    val is_public = bool("is_public").default(true)
     val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

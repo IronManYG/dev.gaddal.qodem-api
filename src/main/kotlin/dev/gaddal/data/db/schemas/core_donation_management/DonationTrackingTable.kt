@@ -7,6 +7,7 @@ import dev.gaddal.data.db.schemas.core_donation_management.DonationTrackingTable
 import dev.gaddal.data.db.schemas.core_donation_management.DonationTrackingTable.id
 import dev.gaddal.data.db.schemas.core_donation_management.DonationTrackingTable.received_datetime
 import dev.gaddal.data.db.schemas.core_donation_management.DonationTrackingTable.status
+import dev.gaddal.data.db.schemas.core_donation_management.enums.TrackingStatus
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
 import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
@@ -28,6 +29,6 @@ object DonationTrackingTable : IntIdTable("donation_tracking") {
     val blood_unit_id = varchar("blood_unit_id", 120)
     val collection_datetime = timestampWithTimeZone("collection_datetime")
     val received_datetime = timestampWithTimeZone("received_datetime")
-    val status = varchar("status", 255)
+    val status = enumerationByName("status", 255, TrackingStatus::class)
     val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

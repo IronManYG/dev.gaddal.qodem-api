@@ -70,9 +70,9 @@ object UserTable : IntIdTable("users") {
     val blood_type = enumerationByName("blood_type", 15, BloodType::class)
     val weight = float("weight")
     val height = float("height").nullable()
-    val eligibility_status = bool("eligibility_status").clientDefault { true }
-    val number_of_donations = integer("number_of_donations").clientDefault { 0 }
-    val donation_points = integer("donation_points").clientDefault { 0 }
+    val eligibility_status = bool("eligibility_status").default(true)
+    val number_of_donations = integer("number_of_donations").default(0)
+    val donation_points = integer("donation_points").default(0)
     val last_donation_date = timestampWithTimeZone("last_donation_date").nullable()
     val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

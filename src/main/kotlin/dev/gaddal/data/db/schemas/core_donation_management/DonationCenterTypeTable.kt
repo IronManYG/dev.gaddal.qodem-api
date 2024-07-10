@@ -28,7 +28,7 @@ import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 object DonationCenterTypeTable : IntIdTable("donation_center_types") {
     val type_name = varchar("type_name", 255)
     val location_type = enumerationByName("location_type", 50, LocationType::class)
-    val appointment_required = bool("appointment_required").clientDefault { true }
+    val appointment_required = bool("appointment_required").default(true)
     val short_description_en = varchar("short_description_en", 1000)
     val short_description_ar = varchar("short_description_ar", 1000)
     val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())

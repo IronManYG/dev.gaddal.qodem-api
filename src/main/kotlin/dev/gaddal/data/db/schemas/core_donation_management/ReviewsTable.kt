@@ -28,7 +28,7 @@ import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 object ReviewsTable : IntIdTable("reviews") {
     val donor_id = integer("donor_id").references(UserTable.id)
     val donation_center_id = integer("donation_center_id").references(DonationCenterTable.id)
-    val is_anonymous = bool("is_anonymous").clientDefault { false }
+    val is_anonymous = bool("is_anonymous").default(false)
     val rating = integer("rating").check { it greaterEq 0; it lessEq 5 }
     val comment = varchar("comment", 1000).nullable()
     val datetime = timestampWithTimeZone("date_time").defaultExpression(CurrentTimestamp())

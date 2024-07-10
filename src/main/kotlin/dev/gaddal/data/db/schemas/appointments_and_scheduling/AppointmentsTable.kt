@@ -7,7 +7,7 @@ import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentsTable.
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentsTable.id
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentsTable.reminder_sent
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentsTable.status
-import dev.gaddal.data.db.schemas.appointments_and_scheduling.enums.Status
+import dev.gaddal.data.db.schemas.appointments_and_scheduling.enums.AppointmentStatus
 import dev.gaddal.data.db.schemas.core_donation_management.DonationCenterTable
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable
 import org.jetbrains.exposed.dao.id.IntIdTable
@@ -30,7 +30,7 @@ object AppointmentsTable : IntIdTable("appointments") {
     val donor_id = integer("donor_id").references(UserTable.id)
     val donation_center_id = integer("donation_center_id").references(DonationCenterTable.id)
     val appointment_datetime = timestampWithTimeZone("appointment_datetime").nullable()
-    val status = enumerationByName("status", 50, Status::class).default(Status.SCHEDULED)
+    val status = enumerationByName("status", 50, AppointmentStatus::class).default(AppointmentStatus.SCHEDULED)
     val reminder_sent = bool("reminder_sent").default(false)
     val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }

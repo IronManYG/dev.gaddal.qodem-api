@@ -1,6 +1,6 @@
 package dev.gaddal.data.db.schemas.appointments_and_scheduling.enums
 
-enum class Status {
+enum class AppointmentStatus {
     SCHEDULED,
     CONFIRMED,
     COMPLETED,

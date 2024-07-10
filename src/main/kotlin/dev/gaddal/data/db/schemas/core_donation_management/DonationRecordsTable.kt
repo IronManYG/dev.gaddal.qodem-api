@@ -13,6 +13,8 @@ import dev.gaddal.data.db.schemas.core_donation_management.DonationRecordsTable.
 import dev.gaddal.data.db.schemas.core_donation_management.DonationRecordsTable.is_active
 import dev.gaddal.data.db.schemas.core_donation_management.DonationRecordsTable.is_authenticated
 import dev.gaddal.data.db.schemas.core_donation_management.DonationRecordsTable.volume
+import dev.gaddal.data.db.schemas.core_donation_management.enums.DonationPurpose
+import dev.gaddal.data.db.schemas.core_donation_management.enums.DonationType
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
 import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
@@ -38,12 +40,12 @@ object DonationRecordsTable : IntIdTable("donation_records") {
     val donor_id = integer("donor_id").references(UserTable.id)
     val donation_center_id = integer("donation_center_id").references(DonationCenterTable.id)
     val blood_type = enumerationByName("blood_type", 15, BloodType::class)
-    val donation_type = varchar("donation_type", 100)
-    val donation_purpose = varchar("donation_purpose", 100)
+    val donation_type = enumerationByName("donation_type", 100, DonationType::class)
+    val donation_purpose = enumerationByName("donation_purpose", 100, DonationPurpose::class)
     val amount = float("amount")
     val volume = float("volume")
     val donation_timestamp = timestampWithTimeZone("donation_timestamp")
-    val is_active = bool("is_active").clientDefault { true }
-    val is_authenticated = bool("is_authenticated").clientDefault { false }
+    val is_active = bool("is_active").default(true)
+    val is_authenticated = bool("is_authenticated").default(false)
     val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
 }
