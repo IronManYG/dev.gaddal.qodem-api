@@ -1,0 +1,198 @@
+[
+  {
+    "id": 1,
+    "donation_center_id": 1,
+    "contact_type": "PHONE",
+    "value": "+249990902492",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "donation_center_id": 2,
+    "contact_type": "PHONE",
+    "value": "+249183230349",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 3,
+    "donation_center_id": 3,
+    "contact_type": "PHONE",
+    "value": "+249918331326",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 4,
+    "donation_center_id": 4,
+    "contact_type": "PHONE",
+    "value": "+249183428245",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 5,
+    "donation_center_id": 5,
+    "contact_type": "PHONE",
+    "value": "+249900038977",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 6,
+    "donation_center_id": 6,
+    "contact_type": "PHONE",
+    "value": "+249156550154",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 7,
+    "donation_center_id": 7,
+    "contact_type": "PHONE",
+    "value": "+249183766773",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 8,
+    "donation_center_id": 8,
+    "contact_type": "PHONE",
+    "value": "+249925667967",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 9,
+    "donation_center_id": 9,
+    "contact_type": "PHONE",
+    "value": "+249992026474",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 10,
+    "donation_center_id": 10,
+    "contact_type": "PHONE",
+    "value": "+249180000000",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 11,
+    "donation_center_id": 11,
+    "contact_type": "PHONE",
+    "value": "+249120661668",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 12,
+    "donation_center_id": 12,
+    "contact_type": "PHONE",
+    "value": "+249155880071",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 13,
+    "donation_center_id": 13,
+    "contact_type": "PHONE",
+    "value": "+249180000000",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 14,
+    "donation_center_id": 14,
+    "contact_type": "PHONE",
+    "value": "+249120513192",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 15,
+    "donation_center_id": 15,
+    "contact_type": "PHONE",
+    "value": "+249187552640",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 16,
+    "donation_center_id": 16,
+    "contact_type": "PHONE",
+    "value": "+249120143411",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 17,
+    "donation_center_id": 17,
+    "contact_type": "PHONE",
+    "value": "+249999666600",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 18,
+    "donation_center_id": 18,
+    "contact_type": "PHONE",
+    "value": "+249180000000",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 19,
+    "donation_center_id": 19,
+    "contact_type": "PHONE",
+    "value": "+249155887217",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 20,
+    "donation_center_id": 20,
+    "contact_type": "PHONE",
+    "value": "+249180000000",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 21,
+    "donation_center_id": 21,
+    "contact_type": "PHONE",
+    "value": "+249994396744",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 22,
+    "donation_center_id": 22,
+    "contact_type": "PHONE",
+    "value": "+249122820320",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 23,
+    "donation_center_id": 23,
+    "contact_type": "PHONE",
+    "value": "+249185212222",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 24,
+    "donation_center_id": 24,
+    "contact_type": "PHONE",
+    "value": "+2492147483647",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 25,
+    "donation_center_id": 25,
+    "contact_type": "PHONE",
+    "value": "+249185334505",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 26,
+    "donation_center_id": 26,
+    "contact_type": "PHONE",
+    "value": "+249180000000",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 27,
+    "donation_center_id": 27,
+    "contact_type": "PHONE",
+    "value": "+249185338087",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 28,
+    "donation_center_id": 28,
+    "contact_type": "PHONE",
+    "value": "+249180000000",
+    "createdAt": "2024-07-11T00:00:00Z"
+  }
+]

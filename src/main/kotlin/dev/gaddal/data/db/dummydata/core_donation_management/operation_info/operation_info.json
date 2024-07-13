@@ -1,0 +1,254 @@
+[
+  {
+    "id": 1,
+    "donation_center_id": 1,
+    "workingHours": "8:00-15:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 10,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "donation_center_id": 2,
+    "workingHours": "8:00-15:00",
+    "workingDays": "Sun-Wed",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 3,
+    "donation_center_id": 3,
+    "workingHours": "9:00-21:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 4,
+    "donation_center_id": 4,
+    "workingHours": "8:00-15:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 10,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 5,
+    "donation_center_id": 5,
+    "workingHours": "8:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 20,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 6,
+    "donation_center_id": 6,
+    "workingHours": "8:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 7,
+    "donation_center_id": 7,
+    "workingHours": "8:00-15:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 8,
+    "donation_center_id": 8,
+    "workingHours": "8:00-17:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 9,
+    "donation_center_id": 9,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 10,
+    "donation_center_id": 10,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 11,
+    "donation_center_id": 11,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 10,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 12,
+    "donation_center_id": 12,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 13,
+    "donation_center_id": 13,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 20,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 14,
+    "donation_center_id": 14,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 15,
+    "donation_center_id": 15,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 10,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 16,
+    "donation_center_id": 16,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 17,
+    "donation_center_id": 17,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 18,
+    "donation_center_id": 18,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 20,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 19,
+    "donation_center_id": 19,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 20,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 20,
+    "donation_center_id": 20,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 20,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 21,
+    "donation_center_id": 21,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 7,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 22,
+    "donation_center_id": 22,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 7,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 23,
+    "donation_center_id": 23,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 24,
+    "donation_center_id": 24,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 20,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 25,
+    "donation_center_id": 25,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 26,
+    "donation_center_id": 26,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 15,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 27,
+    "donation_center_id": 27,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 10,
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 28,
+    "donation_center_id": 28,
+    "workingHours": "9:00-16:00",
+    "workingDays": "Sun-Thu",
+    "gapBetweenAppointment": 30,
+    "donorLimit": 20,
+    "createdAt": "2024-07-11T00:00:00Z"
+  }
+]

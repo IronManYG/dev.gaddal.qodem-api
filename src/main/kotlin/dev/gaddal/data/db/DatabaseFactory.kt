@@ -2,6 +2,7 @@ package dev.gaddal.data.db
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import dev.gaddal.data.db.dummydata.DummyDataInserter
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentRemindersTable
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.AppointmentsTable
 import dev.gaddal.data.db.schemas.appointments_and_scheduling.AvailableTimeslotsTable
@@ -19,16 +20,20 @@ import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable
 import dev.gaddal.data.db.schemas.core_donation_management.*
 import dev.gaddal.data.db.schemas.medical_and_regulatory.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.qualifier.named
 
 /**
  * Singleton object responsible for managing the database connections and schema setup for the Qodem application.
  * It ensures that all necessary tables are created and pre-populated with dummy data upon initialization.
  */
-object DatabaseFactory {
+object DatabaseFactory : KoinComponent {
 
     /**
      * Initializes the database by setting up a connection pool, creating tables, and inserting dummy data.
@@ -81,6 +86,22 @@ object DatabaseFactory {
             )
 
             // Inserting dummy data
+            runBlocking {
+                val donationCenterTypeInserter: DummyDataInserter by inject(qualifier = named("donationCenterType"))
+                donationCenterTypeInserter.insert()
+
+                val donationCenterInserter: DummyDataInserter by inject(qualifier = named("donationCenter"))
+                donationCenterInserter.insert()
+
+                val nameInfoInserter: DummyDataInserter by inject(qualifier = named("nameInfo"))
+                nameInfoInserter.insert()
+
+                val contactDetailsInserter: DummyDataInserter by inject(qualifier = named("contactDetails"))
+                contactDetailsInserter.insert()
+
+                val operationInfoInserter: DummyDataInserter by inject(qualifier = named("operationInfo"))
+                operationInfoInserter.insert()
+            }
         }
     }
 
