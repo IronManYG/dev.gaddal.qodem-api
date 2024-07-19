@@ -1,0 +1,198 @@
+[
+  {
+    "id": 1,
+    "donation_center_id": 1,
+    "arabic": "مستشفى الراقي الجامعي",
+    "english": "Al Raqi University Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "donation_center_id": 2,
+    "arabic": "مستشفى الشيخ التخصصي",
+    "english": "El-Sheikh Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 3,
+    "donation_center_id": 3,
+    "arabic": "مستشفى السلام لجراحة القلب",
+    "english": "Salam Centre for Cardiac Surgery",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 4,
+    "donation_center_id": 4,
+    "arabic": "مستشفى إبراهيم مالك التعليمي",
+    "english": "Ibrahim Malik Teaching Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 5,
+    "donation_center_id": 5,
+    "arabic": "مستشفى الساحة التخصصي",
+    "english": "Al Saha Specialized Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 6,
+    "donation_center_id": 6,
+    "arabic": "مُستشفى رويال كير العالمية",
+    "english": "Royal Care International Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 7,
+    "donation_center_id": 7,
+    "arabic": "مستشفى إمبريال",
+    "english": "Imperial Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 8,
+    "donation_center_id": 8,
+    "arabic": "مستشفى إبن سينا التخصصي",
+    "english": "Ibn Sena Specialized Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 9,
+    "donation_center_id": 9,
+    "arabic": "مستشفى الخرطوم التعليمي",
+    "english": "Khartoum Teaching Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 10,
+    "donation_center_id": 10,
+    "arabic": "مستشفى أمبدة النموذجي التعليمي",
+    "english": "Ombada Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 11,
+    "donation_center_id": 11,
+    "arabic": "مستشفى الدسوقي التخصصي",
+    "english": "Eldesoki Specialist Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 12,
+    "donation_center_id": 12,
+    "arabic": "مستشفى الصداقة الصيني",
+    "english": "Chinese Friendship Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 13,
+    "donation_center_id": 13,
+    "arabic": "مستشفى الأمل - أم درمان",
+    "english": "Alamal Alwtani Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 14,
+    "donation_center_id": 14,
+    "arabic": "مستشفى السلاح الطبي",
+    "english": "Military Hospital Helipad",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 15,
+    "donation_center_id": 15,
+    "arabic": "مستشفى علياء التخصصي 1",
+    "english": "Aliaa Specialist Hospital 1",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 16,
+    "donation_center_id": 16,
+    "arabic": "مستشفى الدايات امدرمان",
+    "english": "Omdurman Maternity Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 17,
+    "donation_center_id": 17,
+    "arabic": "مستشفى دكتور نجيب التخصصي",
+    "english": "Dr. Najeeb Specialized Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 18,
+    "donation_center_id": 18,
+    "arabic": "مستشفى أم درمان التعليمي",
+    "english": "Omdurman Teaching Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 19,
+    "donation_center_id": 19,
+    "arabic": "مستشفى النيل الأزرق",
+    "english": "Blue Nile Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 20,
+    "donation_center_id": 20,
+    "arabic": "مستشفى الشهيد علي عبدالفتاح",
+    "english": "Martyr Ali Abdel Fattah Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 21,
+    "donation_center_id": 21,
+    "arabic": "مستشفى البان الجديد",
+    "english": "Alban Jaded Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 22,
+    "donation_center_id": 22,
+    "arabic": "مستشفى الضحى التخصصي",
+    "english": "Aldoha Specialised Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 23,
+    "donation_center_id": 23,
+    "arabic": "مدينة البراحة الطبية",
+    "english": "Baraha Medical City",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 24,
+    "donation_center_id": 24,
+    "arabic": "المستشفى العالمي",
+    "english": "Universal Hospital Sudan UHS",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 25,
+    "donation_center_id": 25,
+    "arabic": "مستشفى الأمل",
+    "english": "Al-Amal Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 26,
+    "donation_center_id": 26,
+    "arabic": "مستشفى حاج الصافي التعليمي",
+    "english": "Haj El-Safi Teaching Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 27,
+    "donation_center_id": 27,
+    "arabic": "المستشفى الدولي",
+    "english": "International Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  },
+  {
+    "id": 28,
+    "donation_center_id": 28,
+    "arabic": "مستشفى بحري التعليمي",
+    "english": "Khartoum Bahri Teaching Hospital",
+    "createdAt": "2024-07-11T00:00:00Z"
+  }
+]
