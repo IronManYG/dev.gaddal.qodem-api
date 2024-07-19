@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "type_name": "Hospital",
+    "location_type": "FIXED",
+    "appointment_required": true,
+    "short_description_en": "Hospital-based blood donation center",
+    "short_description_ar": "مركز التبرع بالدم في المستشفى"
+  },
+  {
+    "id": 2,
+    "type_name": "Blood Bank",
+    "location_type": "FIXED",
+    "appointment_required": true,
+    "short_description_en": "A fixed location center where blood donations are collected",
+    "short_description_ar": "مركز ثابت لجمع التبرعات بالدم"
+  },
+  {
+    "id": 3,
+    "type_name": "Mobile Blood Drive",
+    "location_type": "MOBILE",
+    "appointment_required": false,
+    "short_description_en": "A MOBILE unit that collects blood donations at various locations",
+    "short_description_ar": "وحدة متنقلة تجمع التبرعات بالدم في مواقع مختلفة"
+  },
+  {
+    "id": 4,
+    "type_name": "Community Blood Drive",
+    "location_type": "FIXED",
+    "appointment_required": true,
+    "short_description_en": "A community center where blood drives are organized",
+    "short_description_ar": "مركز مجتمعي ينظم حملات التبرع بالدم"
+  },
+  {
+    "id": 5,
+    "type_name": "University Blood Drive",
+    "location_type": "FIXED",
+    "appointment_required": false,
+    "short_description_en": "A blood drive event held at a university campus",
+    "short_description_ar": "حدث تبرع بالدم يُعقد في حرم جامعي"
+  }
+]
