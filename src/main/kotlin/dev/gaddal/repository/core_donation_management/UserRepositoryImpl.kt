@@ -22,7 +22,10 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
  * This class provides methods for CRUD operations on users, as well as pagination and error handling.
  */
 class UserRepositoryImpl : UserRepository {
-    private val logger = KotlinLogging.logger {}
+
+    companion object {
+        private val logger = KotlinLogging.logger {}
+    }
 
     /**
      * Retrieves a user by their unique identifier.
