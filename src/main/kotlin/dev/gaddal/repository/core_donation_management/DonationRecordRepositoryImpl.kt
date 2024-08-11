@@ -15,6 +15,7 @@ import org.jetbrains.exposed.sql.selectAll
  * Implementation of [DonationRecordRepository] that interacts with the database to perform donation record-related operations.
  *
  * This class provides methods for retrieving donation records by user ID, as well as pagination and error handling.
+ * It uses [DatabaseFactory] to manage database connections and transactions.
  */
 class DonationRecordRepositoryImpl : DonationRecordRepository {
 
@@ -22,12 +23,6 @@ class DonationRecordRepositoryImpl : DonationRecordRepository {
         private val logger = KotlinLogging.logger {}
     }
 
-    /**
-     * Retrieves a list of donation records for a user by their unique identifier.
-     *
-     * @param userId The unique identifier of the user to retrieve donation records for.
-     * @return A [Result] containing the list of [DonationRecord]s if found, or an error if not found or if a database error occurs.
-     */
     override suspend fun getDonationRecordsByUserId(userId: Int): Result<List<DonationRecord>> {
         return try {
             val donations = DatabaseFactory.dbQuery {
@@ -41,14 +36,6 @@ class DonationRecordRepositoryImpl : DonationRecordRepository {
         }
     }
 
-    /**
-     * Retrieves a paginated list of donation records for a user by their unique identifier.
-     *
-     * @param userId The unique identifier of the user to retrieve donation records for.
-     * @param page The page number to retrieve (1-indexed).
-     * @param limit The maximum number of donation records per page.
-     * @return A [Result] containing a [PaginatedResult] of [DonationRecord]s, or an error if a database error occurs.
-     */
     override suspend fun getDonationRecordsByUserId(
         userId: Int,
         page: Int,

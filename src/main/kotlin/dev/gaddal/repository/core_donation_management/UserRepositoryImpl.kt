@@ -20,6 +20,7 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
  * Implementation of [UserRepository] that interacts with the database to perform user-related operations.
  *
  * This class provides methods for CRUD operations on users, as well as pagination and error handling.
+ * It uses [DatabaseFactory] to manage database connections and transactions.
  */
 class UserRepositoryImpl : UserRepository {
 
@@ -27,12 +28,6 @@ class UserRepositoryImpl : UserRepository {
         private val logger = KotlinLogging.logger {}
     }
 
-    /**
-     * Retrieves a user by their unique identifier.
-     *
-     * @param id The unique identifier of the user to retrieve.
-     * @return A [Result] containing the [User] if found, or an error if not found or if a database error occurs.
-     */
     override suspend fun getUserById(id: Int): Result<User> {
         return try {
             val user = DatabaseFactory.dbQuery {
@@ -52,11 +47,6 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    /**
-     * Retrieves all users from the database.
-     *
-     * @return A [Result] containing a list of all [User]s, or an error if a database error occurs.
-     */
     override suspend fun getUsers(): Result<List<User>> {
         return try {
             val users = DatabaseFactory.dbQuery {
@@ -69,13 +59,6 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    /**
-     * Retrieves a paginated list of users.
-     *
-     * @param page The page number to retrieve (1-indexed).
-     * @param limit The maximum number of users per page.
-     * @return A [Result] containing a [PaginatedResult] of [User]s, or an error if a database error occurs.
-     */
     override suspend fun getUsers(page: Int, limit: Int): Result<PaginatedResult<User>> {
         return try {
             DatabaseFactory.dbQuery {
@@ -99,12 +82,6 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    /**
-     * Adds a new user to the database.
-     *
-     * @param userParams The parameters for creating the new user.
-     * @return A [Result] containing the newly created [User], or an error if creation fails.
-     */
     override suspend fun addUser(userParams: UserParams): Result<User> {
         return try {
             val user = DatabaseFactory.dbQuery {
@@ -151,13 +128,6 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    /**
-     * Updates an existing user in the database.
-     *
-     * @param id The unique identifier of the user to update.
-     * @param userParams The new parameters for the user.
-     * @return A [Result] containing the updated [User], or an error if update fails or user is not found.
-     */
     override suspend fun updateUser(id: Int, userParams: UserParams): Result<User> {
         return try {
             val updated = DatabaseFactory.dbQuery {
@@ -208,12 +178,6 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    /**
-     * Deletes a user from the database.
-     *
-     * @param userId The unique identifier of the user to delete.
-     * @return A [Result] indicating success (true) or failure (error) of the deletion operation.
-     */
     override suspend fun deleteUser(userId: Int): Result<Boolean> {
         return try {
             val deleted = DatabaseFactory.dbQuery {
