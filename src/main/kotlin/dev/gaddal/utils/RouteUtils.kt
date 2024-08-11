@@ -31,7 +31,8 @@ object RouteUtils {
                     @Suppress("UNCHECKED_CAST")
                     (ResponseUtils.respondWithOptionalMeta(call, result as BaseResponse<Any>))
                 }
-                else -> call.respond(result)
+
+                else -> call.respond(BaseResponse.SuccessResponse(data = result))
             }
         } catch (e: Exception) {
             handleException(call, e, logger)
@@ -48,33 +49,40 @@ object RouteUtils {
      * @param logger The logger to use for logging the error.
      */
     suspend fun handleException(call: ApplicationCall, e: Exception, logger: KLogger) {
-        when (e) {
-            is IllegalArgumentException -> call.respond(HttpStatusCode.BadRequest, e.message ?: "Invalid input")
-            is ContentTransformationException -> call.respond(
-                HttpStatusCode.BadRequest,
-                "Invalid request body: ${e.message}"
+        val errorResponse = when (e) {
+            is IllegalArgumentException -> BaseResponse.ErrorResponse(
+                message = e.message ?: "Invalid input",
+                statusCode = HttpStatusCode.BadRequest
             )
-            is NotFoundException -> call.respond(HttpStatusCode.NotFound, e.message ?: "Resource not found")
-            is ValidationException -> call.respond(HttpStatusCode.BadRequest, e.message ?: "Validation failed")
-            is UnauthorizedException -> call.respond(HttpStatusCode.Unauthorized, e.message ?: "Unauthorized")
+
+            is ContentTransformationException -> BaseResponse.ErrorResponse(
+                message = "Invalid request body: ${e.message}",
+                statusCode = HttpStatusCode.BadRequest
+            )
+
+            is NotFoundException -> BaseResponse.ErrorResponse(
+                message = e.message ?: "Resource not found",
+                statusCode = HttpStatusCode.NotFound
+            )
+
+            is ValidationException -> BaseResponse.ErrorResponse(
+                message = e.message ?: "Validation failed",
+                statusCode = HttpStatusCode.BadRequest
+            )
+
+            is UnauthorizedException -> BaseResponse.ErrorResponse(
+                message = e.message ?: "Unauthorized",
+                statusCode = HttpStatusCode.Unauthorized
+            )
+
             else -> {
                 logger.error(e) { "Unexpected error in route handling" }
-                call.respond(HttpStatusCode.InternalServerError, "An unexpected error occurred")
+                BaseResponse.ErrorResponse(
+                    message = "An unexpected error occurred",
+                    statusCode = HttpStatusCode.InternalServerError
+                )
             }
         }
+        call.respond(errorResponse.statusCode, errorResponse)
     }
 }
-
-/**
- * Exception thrown when a requested resource is not found.
- *
- * @param message The error message describing what resource was not found.
- */
-class NotFoundException(message: String) : Exception(message)
-
-/**
- * Exception thrown when validation of input data fails.
- *
- * @param message The error message describing the validation failure.
- */
-class ValidationException(message: String) : Exception(message)

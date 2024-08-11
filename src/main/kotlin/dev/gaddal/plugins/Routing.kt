@@ -1,20 +1,12 @@
 package dev.gaddal.plugins
 
-import io.ktor.http.*
+import dev.gaddal.routes.user_donor_management.userDonorManagementRoutes
 import io.ktor.server.application.*
-import io.ktor.server.plugins.statuspages.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
 
+/**
+ * Configures the routing for the application.
+ * This function sets up all the routes for the Ktor server by calling specific route configuration functions.
+ */
 fun Application.configureRouting() {
-    install(StatusPages) {
-        exception<Throwable> { call, cause ->
-            call.respondText(text = "500: $cause" , status = HttpStatusCode.InternalServerError)
-        }
-    }
-    routing {
-        get("/") {
-            call.respondText("Hello World!")
-        }
-    }
+    userDonorManagementRoutes()
 }

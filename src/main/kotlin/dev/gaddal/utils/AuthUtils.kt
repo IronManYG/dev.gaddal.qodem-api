@@ -35,10 +35,3 @@ object AuthUtils {
         return extractPrincipalId(call) ?: throw UnauthorizedException("User not authenticated")
     }
 }
-
-/**
- * Custom exception for unauthorized access attempts.
- *
- * @param message The error message.
- */
-class UnauthorizedException(message: String) : Exception(message)
