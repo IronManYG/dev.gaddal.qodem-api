@@ -15,7 +15,6 @@ import dev.gaddal.data.db.schemas.core_donation_management.UserTable.height
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.id
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.image_url
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.last_donation_date
-import dev.gaddal.data.db.schemas.core_donation_management.UserTable.name_id
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.number_of_donations
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.phone_number
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.postal_code
@@ -25,7 +24,7 @@ import dev.gaddal.data.db.schemas.core_donation_management.UserTable.weight
 import dev.gaddal.data.db.schemas.core_donation_management.enums.Gender
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import org.jetbrains.exposed.sql.kotlin.datetime.date
 import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
 
 /**
@@ -33,7 +32,6 @@ import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
  * This table includes demographics, medical history, contact information, and donation-related data.
  *
  * @property id Unique identifier for the user, automatically incremented.
- * @property name_id Foreign key reference to the names table, identifying the user's name entry.
  * @property birth_date User's birthdate.
  * @property gender User's gender.
  * @property postal_code Optional postal code of the user's address.
@@ -55,8 +53,7 @@ import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
  * @property createdAt Timestamp of the creation date of the user record.
  */
 object UserTable : IntIdTable("users") {
-    val name_id = integer("name_id").references(UserNameTable.id)
-    val birth_date = datetime("birth_date")
+    val birth_date = date("birth_date")
     val gender = enumerationByName("gender", 20, Gender::class)
     val postal_code = varchar("postal_code", 20).nullable()
     val street = varchar("street", 255).nullable()
