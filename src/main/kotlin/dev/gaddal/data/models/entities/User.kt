@@ -8,8 +8,8 @@ import org.jetbrains.exposed.sql.ResultRow
 /**
  * Represents aUser in the application.
  *
- * This data class is used to model the data from the `UserTable` in the database.
- * Each property in the class corresponds to a column in the `UserTable`.
+ * This data class is used to model the data from the `UserTable` and `UserNameTable` in the database.
+ * Each property in the class corresponds to a column in the `UserTable` and `UserNameTable`.
  *
  * @see dev.gaddal.data.db.schemas.core_donation_management.UserTable
  */
