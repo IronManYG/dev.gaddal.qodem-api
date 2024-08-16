@@ -16,6 +16,7 @@ import dev.gaddal.data.db.schemas.core_donation_management.UserTable.id
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.image_url
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.last_donation_date
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.number_of_donations
+import dev.gaddal.data.db.schemas.core_donation_management.UserTable.password
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.phone_number
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.postal_code
 import dev.gaddal.data.db.schemas.core_donation_management.UserTable.state
@@ -41,6 +42,7 @@ import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
  * @property country Country of the user's residence.
  * @property phone_number User's phone number.
  * @property email User's email address.
+ * @property password User's password.
  * @property emergency_contact Optional emergency contact number.
  * @property image_url Optional URL or name of the user's profile image.
  * @property blood_type User's blood type.
@@ -62,6 +64,7 @@ object UserTable : IntIdTable("users") {
     val country = varchar("country", 255)
     val phone_number = varchar("phone_number", 50)
     val email = varchar("email", 255)
+    val password = varchar("password", 255)
     val emergency_contact = varchar("emergency_contact", 50).nullable()
     val image_url = varchar("image_url", 255).nullable()
     val blood_type = enumerationByName("blood_type", 15, BloodType::class)

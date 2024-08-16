@@ -48,6 +48,7 @@ dependencies {
     implementation("io.ktor:ktor-server-config-yaml:2.3.10")
     implementation("io.insert-koin:koin-ktor:3.5.6")
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
+    implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }

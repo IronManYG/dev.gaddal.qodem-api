@@ -20,6 +20,7 @@ data class UserParams(
     val country: String,
     val phoneNumber: String,
     val email: String,
+    val password: String,
     val emergencyContact: String?,
     val imageUrl: String?,
     val bloodType: String,
