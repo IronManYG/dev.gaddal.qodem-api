@@ -67,19 +67,6 @@ class UserDonorManagementController(
     }
 
     /**
-     * Handles the request to add a new user/donor.
-     *
-     * @param call The ApplicationCall containing the request details.
-     */
-    suspend fun addUser(call: ApplicationCall) {
-        logger.info { "Received request to add a new user/donor" }
-        RouteUtils.handleRoute(call, logger) {
-            val userParams = call.receive<UserParams>()
-            userService.addUser(userParams)
-        }
-    }
-
-    /**
      * Handles the request to update an existing user/donor.
      *
      * @param call The ApplicationCall containing the request details.

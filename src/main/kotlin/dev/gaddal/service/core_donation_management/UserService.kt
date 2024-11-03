@@ -34,14 +34,6 @@ interface UserService {
     suspend fun getUsers(page: Int, limit: Int): BaseResponse<Any>
 
     /**
-     * Adds a new user to the system.
-     *
-     * @param userParams The parameters for creating the new user.
-     * @return A [BaseResponse] containing the newly created user data, or an error message if the operation fails.
-     */
-    suspend fun addUser(userParams: UserParams): BaseResponse<Any>
-
-    /**
      * Updates an existing user.
      *
      * @param id The unique identifier of the user to update.

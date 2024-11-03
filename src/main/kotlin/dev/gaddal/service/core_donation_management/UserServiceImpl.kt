@@ -59,21 +59,6 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
         }
     }
 
-    override suspend fun addUser(userParams: UserParams): BaseResponse<Any> {
-        return when (val result = userRepository.addUser(userParams)) {
-            is Result.Success -> BaseResponse.SuccessResponse(
-                data = result.value,
-                message = messageBuilder.createdSuccess()
-            )
-            is Result.Error -> ErrorHandler.handleError(
-                result.error,
-                logger,
-                messageBuilder.notFound(),
-                messageBuilder.processingError()
-            )
-        }
-    }
-
     override suspend fun updateUser(id: Int, userParams: UserParams): BaseResponse<Any> {
         return when (val result = userRepository.updateUser(id, userParams)) {
             is Result.Success -> BaseResponse.SuccessResponse(

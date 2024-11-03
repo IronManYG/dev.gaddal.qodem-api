@@ -35,14 +35,6 @@ fun Application.userDonorManagementRoutes() {
                 }
 
                 /**
-                 * POST /api/v1/users
-                 * Creates a new user/donor
-                 */
-                post {
-                    userDonorManagementController.addUser(call)
-                }
-
-                /**
                  * GET /api/v1/users/{id}
                  * Retrieves a specific user/donor by their ID
                  */
