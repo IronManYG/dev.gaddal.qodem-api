@@ -20,6 +20,11 @@ sealed class OperationError {
     data class InvalidInput(val message: String) : OperationError()
 
     /**
+     * Represents an error due to a conflict with existing data.
+     */
+    data class Conflict(val message: String) : OperationError()
+
+    /**
      * Represents a general error for cases not covered by other specific error types.
      */
     data class General(val message: String) : OperationError()

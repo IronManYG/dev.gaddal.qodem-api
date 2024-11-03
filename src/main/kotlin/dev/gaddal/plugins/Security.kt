@@ -1,30 +1,35 @@
 package dev.gaddal.plugins
 
-import com.auth0.jwt.JWT
-import com.auth0.jwt.algorithms.Algorithm
+import dev.gaddal.utils.JwtConfig
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import org.koin.ktor.ext.inject
 
+/**
+ * Configures security features for the application, primarily JWT authentication.
+ */
 fun Application.configureSecurity() {
-    // Please read the jwt property from the config file if you are using EngineMain
-    val jwtAudience = "jwt-audience"
-    val jwtDomain = "https://jwt-provider-domain/"
-    val jwtRealm = "ktor sample app"
-    val jwtSecret = "secret"
+    val jwtConfig: JwtConfig by inject()
+
     authentication {
-        jwt {
-            realm = jwtRealm
-            verifier(
-                JWT
-                    .require(Algorithm.HMAC256(jwtSecret))
-                    .withAudience(jwtAudience)
-                    .withIssuer(jwtDomain)
-                    .build()
-            )
+        jwt("auth-jwt") {
+            realm = jwtConfig.realm
+            verifier(jwtConfig.verifier)
             validate { credential ->
-                if (credential.payload.audience.contains(jwtAudience)) JWTPrincipal(credential.payload) else null
+                jwtConfig.customValidator(credential)
+            }
+            challenge { _, _ ->
+                call.respond(HttpStatusCode.Unauthorized, "Token is not valid or has expired")
             }
         }
     }
 }
+
+/**
+ * Applies JWT authentication to a specific route.
+ */
+fun Route.authenticate(build: Route.() -> Unit) = authenticate("auth-jwt", build = build)

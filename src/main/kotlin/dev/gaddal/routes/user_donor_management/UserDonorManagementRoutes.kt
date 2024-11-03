@@ -1,6 +1,7 @@
 package dev.gaddal.routes.user_donor_management
 
 import dev.gaddal.controller.user_donor_management.UserDonorManagementController
+import dev.gaddal.plugins.authenticate
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
@@ -23,77 +24,80 @@ fun Application.userDonorManagementRoutes() {
 
     routing {
         // Group all user and donor management-related routes under "/api/v1/users"
-        route("/api/v1/users") {
-            /**
-             * GET /api/v1/users
-             * Retrieves a list of all users/donors or a paginated list if query parameters are provided
-             */
-            get {
-                userDonorManagementController.getUsers(call)
-            }
+        authenticate {
+            route("/api/v1/users") {
+                /**
+                 * GET /api/v1/users
+                 * Retrieves a list of all users/donors or a paginated list if query parameters are provided
+                 */
+                get {
+                    userDonorManagementController.getUsers(call)
+                }
 
-            /**
-             * POST /api/v1/users
-             * Creates a new user/donor
-             */
-            post {
-                userDonorManagementController.addUser(call)
-            }
+                /**
+                 * POST /api/v1/users
+                 * Creates a new user/donor
+                 */
+                post {
+                    userDonorManagementController.addUser(call)
+                }
 
-            /**
-             * GET /api/v1/users/{id}
-             * Retrieves a specific user/donor by their ID
-             */
-            get("{id}") {
-                userDonorManagementController.getUserById(call)
-            }
+                /**
+                 * GET /api/v1/users/{id}
+                 * Retrieves a specific user/donor by their ID
+                 */
 
-            /**
-             * PUT /api/v1/users/{id}
-             * Updates an existing user/donor identified by their ID
-             */
-            put("{id}") {
-                userDonorManagementController.updateUser(call)
-            }
+                get("{id}") {
+                    userDonorManagementController.getUserById(call)
+                }
 
-            /**
-             * DELETE /api/v1/users/{id}
-             * Deletes a user/donor identified by their ID
-             */
-            delete("{id}") {
-                userDonorManagementController.deleteUser(call)
-            }
+                /**
+                 * PUT /api/v1/users/{id}
+                 * Updates an existing user/donor identified by their ID
+                 */
+                put("{id}") {
+                    userDonorManagementController.updateUser(call)
+                }
 
-            /**
-             * GET /api/v1/users/{id}/medical-history
-             * Retrieves the medical history of a user/donor identified by their ID
-             */
-            get("{id}/medical-history") {
-                userDonorManagementController.getUserMedicalHistory(call)
-            }
+                /**
+                 * DELETE /api/v1/users/{id}
+                 * Deletes a user/donor identified by their ID
+                 */
+                delete("{id}") {
+                    userDonorManagementController.deleteUser(call)
+                }
 
-            /**
-             * PUT /api/v1/users/{id}/medical-history
-             * Updates the medical history of a user/donor identified by their ID
-             */
-            put("{id}/medical-history") {
-                userDonorManagementController.updateUserMedicalHistory(call)
-            }
+                /**
+                 * GET /api/v1/users/{id}/medical-history
+                 * Retrieves the medical history of a user/donor identified by their ID
+                 */
+                get("{id}/medical-history") {
+                    userDonorManagementController.getUserMedicalHistory(call)
+                }
 
-            /**
-             * GET /api/v1/users/{id}/donations
-             * Retrieves the donations of a user/donor identified by their ID
-             */
-            get("{id}/donations") {
-                userDonorManagementController.getUserDonations(call)
-            }
+                /**
+                 * PUT /api/v1/users/{id}/medical-history
+                 * Updates the medical history of a user/donor identified by their ID
+                 */
+                put("{id}/medical-history") {
+                    userDonorManagementController.updateUserMedicalHistory(call)
+                }
 
-            /**
-             * GET /api/v1/users/{id}/badges
-             * Retrieves the badges of a user/donor identified by their ID
-             */
-            get("{id}/badges") {
-                userDonorManagementController.getUserBadges(call)
+                /**
+                 * GET /api/v1/users/{id}/donations
+                 * Retrieves the donations of a user/donor identified by their ID
+                 */
+                get("{id}/donations") {
+                    userDonorManagementController.getUserDonations(call)
+                }
+
+                /**
+                 * GET /api/v1/users/{id}/badges
+                 * Retrieves the badges of a user/donor identified by their ID
+                 */
+                get("{id}/badges") {
+                    userDonorManagementController.getUserBadges(call)
+                }
             }
         }
     }

@@ -1,5 +1,8 @@
 package dev.gaddal.utils
 
+import dev.gaddal.data.models.params.LoginParams
+import dev.gaddal.data.models.params.RefreshTokenParams
+import dev.gaddal.data.models.params.UserParams
 import io.ktor.server.plugins.*
 
 /**
@@ -54,5 +57,24 @@ object ValidationUtils {
     fun validatePaginationParams(page: Int, limit: Int) {
         validatePositive(page, "Page number")
         validatePositive(limit, "Limit")
+    }
+
+    fun validateUserParams(params: UserParams) {
+        validateNotBlank(params.firstName, "First name")
+        validateNotBlank(params.lastName, "Last name")
+        validateNotBlank(params.email, "Email")
+        validateNotBlank(params.password, "Password")
+        validateNotBlank(params.gender, "Gender")
+        validateNotBlank(params.bloodType, "Blood type")
+        validatePositive(params.weight.toInt(), "Weight")
+    }
+
+    fun validateLoginParams(params: LoginParams) {
+        validateNotBlank(params.email, "Email")
+        validateNotBlank(params.password, "Password")
+    }
+
+    fun validateRefreshTokenParams(params: RefreshTokenParams) {
+        validateNotBlank(params.refreshToken, "Refresh token")
     }
 }

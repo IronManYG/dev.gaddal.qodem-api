@@ -6,74 +6,93 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTCreationException
 import dev.gaddal.repository.core_donation_management.UserRepository
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.ktor.server.application.*
 import io.ktor.server.auth.jwt.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.*
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.days
-import kotlin.time.Duration.Companion.hours
 
-class JwtConfig private constructor(
-    private val application: Application,
-    private val userRepository: UserRepository
+/**
+ * Configuration and utility class for handling JWT (JSON Web Token) operations.
+ * This class provides methods for creating, validating, and managing JWTs used for authentication.
+ *
+ * @property userRepository Repository for user-related database operations.
+ * @property config Configuration parameters for JWT operations.
+ */
+class JwtConfig(
+    private val userRepository: UserRepository,
+    private val config: JwtConfigParams,
 ) {
-    private val logger = KotlinLogging.logger {}
+    // Algorithm used for signing JWTs
+    private val algorithm: Algorithm = Algorithm.HMAC256(config.secret)
 
-    private val secret: String
-    private val issuer: String
-    private val audience: String
-    val realm: String
-    private val algorithm: Algorithm
-    private val accessTokenDuration: Duration
-    private val refreshTokenDuration: Duration
+    val realm: String = config.realm
 
-    init {
-        try {
-            secret = getConfigProperty("jwt.secret")
-            issuer = getConfigProperty("jwt.issuer")
-            audience = getConfigProperty("jwt.audience")
-            realm = getConfigProperty("jwt.realm")
-            accessTokenDuration = getConfigProperty("jwt.accessTokenDuration").toLong().hours
-            refreshTokenDuration = getConfigProperty("jwt.refreshTokenDuration").toLong().days
-            algorithm = Algorithm.HMAC256(secret)
-        } catch (e: Exception) {
-            logger.error(e) { "Failed to initialize JwtConfig" }
-            throw RuntimeException("JWT configuration error", e)
-        }
-    }
-
+    /**
+     * JWT verifier instance used to validate tokens.
+     */
     val verifier: JWTVerifier = JWT
         .require(algorithm)
-        .withIssuer(issuer)
-        .withAudience(audience)
+        .withIssuer(config.issuer)
+        .withAudience(config.audience)
         .build()
 
+    /**
+     * Calculates the expiration timestamp for access tokens.
+     */
     val accessTokenExpirationTimestamp: Long
-        get() = System.currentTimeMillis() + accessTokenDuration.inWholeMilliseconds
+        get() = System.currentTimeMillis() + config.accessTokenDuration.inWholeMilliseconds
 
-    fun createAccessToken(id: Int): String = createJwtToken(id, accessTokenDuration.inWholeMilliseconds)
+    /**
+     * Creates an access token for the given user ID.
+     *
+     * @param id The ID of the user for whom the token is being created.
+     * @return A JWT string representing the access token.
+     */
+    fun createAccessToken(id: Int): String = createJwtToken(id, config.accessTokenDuration.inWholeMilliseconds)
 
-    fun createRefreshToken(id: Int): String = createJwtToken(id, refreshTokenDuration.inWholeMilliseconds)
+    /**
+     * Creates a refresh token for the given user ID.
+     *
+     * @param id The ID of the user for whom the token is being created.
+     * @return A JWT string representing the refresh token.
+     */
+    fun createRefreshToken(id: Int): String = createJwtToken(id, config.refreshTokenDuration.inWholeMilliseconds)
 
+    /**
+     * Internal function to create a JWT with specified expiration.
+     *
+     * @param id The ID of the user for whom the token is being created.
+     * @param expireIn The duration in milliseconds after which the token will expire.
+     * @return A JWT string.
+     * @throws JwtException if token creation fails.
+     */
     private fun createJwtToken(id: Int, expireIn: Long): String {
         return try {
             JWT.create()
-                .withIssuer(issuer)
-                .withAudience(audience)
+                .withIssuer(config.issuer)
+                .withAudience(config.audience)
                 .withClaim(CLAIM_ID, id)
                 .withExpiresAt(Date(System.currentTimeMillis() + expireIn))
                 .sign(algorithm)
         } catch (e: JWTCreationException) {
             logger.error(e) { "Failed to create JWT token" }
-            throw RuntimeException("Token creation failed", e)
+            throw JwtException("Token creation failed", e)
         }
     }
 
+    /**
+     * Creates a custom JWT with specified claims and expiration.
+     *
+     * @param claims A map of custom claims to include in the token.
+     * @param expireIn The duration in milliseconds after which the token will expire.
+     * @return A JWT string with custom claims.
+     * @throws JwtException if token creation fails.
+     */
     fun createCustomToken(claims: Map<String, Any>, expireIn: Long): String {
         return try {
             val token = JWT.create()
-                .withIssuer(issuer)
-                .withAudience(audience)
+                .withIssuer(config.issuer)
+                .withAudience(config.audience)
                 .withExpiresAt(Date(System.currentTimeMillis() + expireIn))
 
             claims.forEach { (key, value) ->
@@ -89,10 +108,16 @@ class JwtConfig private constructor(
             token.sign(algorithm)
         } catch (e: JWTCreationException) {
             logger.error(e) { "Failed to create custom JWT token" }
-            throw RuntimeException("Custom token creation failed", e)
+            throw JwtException("Custom token creation failed", e)
         }
     }
 
+    /**
+     * Validates a JWT credential and returns a JWTPrincipal if valid.
+     *
+     * @param credential The JWT credential to validate.
+     * @return A JWTPrincipal if the token is valid, null otherwise.
+     */
     suspend fun customValidator(credential: JWTCredential): JWTPrincipal? {
         val userId = credential.payload.getClaim(CLAIM_ID).asInt()
         return when {
@@ -110,44 +135,57 @@ class JwtConfig private constructor(
         }
     }
 
+    /**
+     * Validates a user exists for the given user ID in the credential.
+     *
+     * @param userId The ID of the user to validate.
+     * @param credential The JWT credential being validated.
+     * @return A JWTPrincipal if the user is valid, null otherwise.
+     */
     private suspend fun validateUser(userId: Int, credential: JWTCredential): JWTPrincipal? {
-        return try {
-            when (val result = userRepository.getUserById(userId)) {
-                is Result.Success -> {
-                    logger.info { "JWT validation successful for user ID: $userId" }
-                    JWTPrincipal(credential.payload)
-                }
+        return withContext(Dispatchers.IO) {
+            try {
+                when (val result = userRepository.getUserById(userId)) {
+                    is Result.Success -> {
+                        logger.info { "JWT validation successful for user ID: $userId" }
+                        JWTPrincipal(credential.payload)
+                    }
 
-                is Result.Error -> {
-                    TODO()
+                    is Result.Error -> {
+                        logger.warn { "JWT validation failed: User not found" }
+                        null
+                    }
                 }
+            } catch (e: Exception) {
+                logger.error(e) { "Error during user validation for JWT" }
+                null
             }
-        } catch (e: Exception) {
-            logger.error(e) { "Error during user validation for JWT" }
-            null
         }
     }
 
+    /**
+     * Checks if the audience in the credential matches the configured audience.
+     *
+     * @param credential The JWT credential to check.
+     * @return true if the audience matches, false otherwise.
+     */
     private fun audienceMatches(credential: JWTCredential): Boolean =
-        credential.payload.audience.contains(audience)
+        credential.payload.audience.contains(config.audience)
 
-    fun audienceMatches(audience: String): Boolean = this.audience == audience
-
-    private fun getConfigProperty(path: String): String =
-        application.environment.config.property(path).getString()
+    /**
+     * Checks if the given audience string matches the configured audience.
+     *
+     * @param audience The audience string to check.
+     * @return true if the audience matches, false otherwise.
+     */
+    fun audienceMatches(audience: String): Boolean = config.audience == audience
 
     companion object {
+        private val logger = KotlinLogging.logger {}
+
+        /**
+         * Claim key used for storing the user ID in JWTs.
+         */
         const val CLAIM_ID = "id"
-
-        lateinit var instance: JwtConfig
-            private set
-
-        fun initialize(application: Application, userRepository: UserRepository) {
-            synchronized(this) {
-                if (!this::instance.isInitialized) {
-                    instance = JwtConfig(application, userRepository)
-                }
-            }
-        }
     }
 }

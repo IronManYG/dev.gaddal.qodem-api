@@ -75,4 +75,8 @@ object UserTable : IntIdTable("users") {
     val donation_points = integer("donation_points").default(0)
     val last_donation_date = timestampWithTimeZone("last_donation_date").nullable()
     val createdAt = timestampWithTimeZone("created_at").defaultExpression(CurrentTimestamp())
+
+    init {
+        uniqueIndex(phone_number, email)
+    }
 }

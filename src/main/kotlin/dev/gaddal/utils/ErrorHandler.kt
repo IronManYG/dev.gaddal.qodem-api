@@ -54,6 +54,14 @@ object ErrorHandler {
                 )
             }
 
+            is OperationError.Conflict -> {
+                logger.warn { "Conflict: ${operationError.message}" }
+                BaseResponse.ErrorResponse(
+                    statusCode = HttpStatusCode.Conflict,
+                    message = operationError.message
+                )
+            }
+
             is OperationError.General -> {
                 logger.error { "General error: ${operationError.message}" }
                 BaseResponse.ErrorResponse(

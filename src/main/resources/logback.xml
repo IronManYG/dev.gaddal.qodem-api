@@ -1,12 +1,75 @@
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    <!-- Define the base directory for log files -->
+    <property name="LOG_PATH" value="logs" />
+
+    <!-- Define the directory for archived log files -->
+    <property name="LOG_ARCHIVE" value="${LOG_PATH}/archive" />
+
+    <!-- Console Appender -->
+    <!-- Outputs logs to the console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- Using full package names as seen in your logs -->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger) - %msg%n</pattern>-->
+
+            <!-- For abbreviated package names, uncomment the line below and comment out the line above -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n</pattern>
         </encoder>
     </appender>
-    <root level="trace">
-        <appender-ref ref="STDOUT"/>
+
+<!--    &lt;!&ndash; Rolling File Appender &ndash;&gt;-->
+<!--    &lt;!&ndash; This appender saves logs to files and handles log rotation &ndash;&gt;-->
+<!--    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        &lt;!&ndash; Specify the active log file location &ndash;&gt;-->
+<!--        <file>${LOG_PATH}/application.log</file>-->
+
+<!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+<!--            &lt;!&ndash; For abbreviated package names (default) &ndash;&gt;-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{15} - %msg%n</pattern>-->
+
+<!--            &lt;!&ndash; For full package names, uncomment the line below and comment out the line above &ndash;&gt;-->
+<!--            &lt;!&ndash;<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>&ndash;&gt;-->
+<!--        </encoder>-->
+
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash; Define the file pattern for archived logs &ndash;&gt;-->
+<!--            <fileNamePattern>${LOG_ARCHIVE}/application.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+
+<!--            &lt;!&ndash; Keep log files for the last 30 days &ndash;&gt;-->
+<!--            <maxHistory>30</maxHistory>-->
+
+<!--            &lt;!&ndash; Limit the total size of all archived logs to 3GB &ndash;&gt;-->
+<!--            <totalSizeCap>3GB</totalSizeCap>-->
+<!--        </rollingPolicy>-->
+<!--    </appender>-->
+
+<!--    &lt;!&ndash; ASYNC Appender &ndash;&gt;-->
+<!--    &lt;!&ndash; Asynchronously writes logs to the FILE appender to improve performance &ndash;&gt;-->
+<!--    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">-->
+<!--        &lt;!&ndash; Reference to the FILE appender &ndash;&gt;-->
+<!--        <appender-ref ref="FILE" />-->
+
+<!--        &lt;!&ndash; Define the size of the queue holding log events &ndash;&gt;-->
+<!--        <queueSize>512</queueSize>-->
+
+<!--        &lt;!&ndash; Control when to discard log events if the queue is full &ndash;&gt;-->
+<!--        &lt;!&ndash; A value of 0 means no events will be discarded &ndash;&gt;-->
+<!--        <discardingThreshold>0</discardingThreshold>-->
+<!--    </appender>-->
+
+    <!-- Logger configurations for specific packages -->
+    <!-- Sets the logging level to INFO for Jetty and Netty packages -->
+    <logger name="org.eclipse.jetty" level="INFO" />
+    <logger name="io.netty" level="INFO" />
+
+    <!-- Logger configuration for your Kotlin package -->
+    <!-- Adjust the package name to match your application -->
+    <logger name="dev.gaddal" level="DEBUG" />
+
+    <!-- Root logger configuration -->
+    <!-- Logs at the INFO level by default and uses the CONSOLE and ASYNC appenders -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+<!--        <appender-ref ref="ASYNC" />-->
     </root>
-    <logger name="org.eclipse.jetty" level="INFO"/>
-    <logger name="io.netty" level="INFO"/>
 </configuration>

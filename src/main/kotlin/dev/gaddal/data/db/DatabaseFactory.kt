@@ -19,6 +19,7 @@ import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityModeratorTa
 import dev.gaddal.data.db.schemas.communities_and_campaigns.CommunityTable
 import dev.gaddal.data.db.schemas.core_donation_management.*
 import dev.gaddal.data.db.schemas.medical_and_regulatory.*
+import dev.gaddal.data.db.schemas.refresh_token_service.RefreshTokenTable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.Database
@@ -44,13 +45,16 @@ object DatabaseFactory : KoinComponent {
         transaction {
             // Creating tables
             SchemaUtils.create(
+                // Authentication and Authorization
+                UserTable,
+                RefreshTokenTable,
+
                 // Core Donation Management
                 DonationCenterTable,
                 DonationCenterTypeTable,
                 NameInfoTable,
                 ContactDetailTable,
                 CenterSocialLinkTable,
-                UserTable,
                 UserNameTable,
                 IdentificationTable,
                 OperationInfoTable,

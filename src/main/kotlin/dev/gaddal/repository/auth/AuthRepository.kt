@@ -1,6 +1,7 @@
 package dev.gaddal.repository.auth
 
 import dev.gaddal.data.models.entities.User
+import dev.gaddal.data.models.params.LoginParams
 import dev.gaddal.data.models.params.UserParams
 import dev.gaddal.utils.Result
 
@@ -20,11 +21,10 @@ interface AuthRepository {
     /**
      * Attempts to log in a user with the given email and password.
      *
-     * @param email The user's email address.
-     * @param password The user's password.
+     * @param loginParams The LoginParams object containing the user's login details.
      * @return A [Result] containing the logged-in [User] if successful, or an error if login fails.
      */
-    suspend fun loginUser(email: String, password: String): Result<User>
+    suspend fun loginUser(loginParams: LoginParams): Result<User>
 
     /**
      * Finds a user by their email address.
