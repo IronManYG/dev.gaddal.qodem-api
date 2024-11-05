@@ -34,7 +34,8 @@ class UserDonorManagementController(
     private val logger = KotlinLogging.logger {}
 
     /**
-     * Handles the request to retrieve users/donors, with optional pagination.
+     * Admin only route.
+     * Handles the request to retrieve all users/donors, with optional pagination.
      *
      * @param call The ApplicationCall containing the request details.
      */
@@ -54,33 +55,34 @@ class UserDonorManagementController(
     }
 
     /**
-     * Handles the request to retrieve a user/donor by their ID.
+     * Handles the request to retrieve the authenticated user's profile.
      *
-     * @param call The ApplicationCall containing the request details.
+     * @param call The ApplicationCall containing the request details with JWT token.
      */
-    suspend fun getUserById(call: ApplicationCall) {
+    suspend fun getUserProfile(call: ApplicationCall) {
         logger.info { "Received request to get user/donor by ID" }
         RouteUtils.handleRoute(call, logger) {
-            val id = ValidationUtils.validateIntParameter(call.parameters["id"], "user/donor ID")
-            userService.getUserById(id)
+            val userId = extractAuthenticatedUserId(call)
+            userService.getUserById(userId)
         }
     }
 
     /**
-     * Handles the request to update an existing user/donor.
+     * Handles the request to update the authenticated user's profile.
      *
-     * @param call The ApplicationCall containing the request details.
+     * @param call The ApplicationCall containing the request details with JWT token.
      */
-    suspend fun updateUser(call: ApplicationCall) {
+    suspend fun updateProfile(call: ApplicationCall) {
         logger.info { "Received request to update a user/donor" }
         RouteUtils.handleRoute(call, logger) {
-            val id = ValidationUtils.validateIntParameter(call.parameters["id"], "user/donor ID")
+            val userId = extractAuthenticatedUserId(call)
             val userParams = call.receive<UserParams>()
-            userService.updateUser(id, userParams)
+            userService.updateUser(userId, userParams)
         }
     }
 
     /**
+     * Admin only route.
      * Handles the request to delete a user/donor.
      *
      * @param call The ApplicationCall containing the request details.
@@ -94,41 +96,41 @@ class UserDonorManagementController(
     }
 
     /**
-     * Handles the request to retrieve a user/donor's medical history.
+     * Handles the request to retrieve the authenticated user's medical history.
      *
-     * @param call The ApplicationCall containing the request details.
+     * @param call The ApplicationCall containing the request details with JWT token.
      */
-    suspend fun getUserMedicalHistory(call: ApplicationCall) {
+    suspend fun getMedicalHistory(call: ApplicationCall) {
         logger.info { "Received request to get user/donor's medical history" }
         RouteUtils.handleRoute(call, logger) {
-            val userId = ValidationUtils.validateIntParameter(call.parameters["id"], "user/donor ID")
+            val userId = extractAuthenticatedUserId(call)
             medicalHistoryService.getMedicalHistoryByUserId(userId)
         }
     }
 
     /**
-     * Handles the request to update a user/donor's medical history.
+     * Handles the request to update the authenticated user's medical history.
      *
-     * @param call The ApplicationCall containing the request details.
+     * @param call The ApplicationCall containing the request details with JWT token.
      */
-    suspend fun updateUserMedicalHistory(call: ApplicationCall) {
+    suspend fun updateMedicalHistory(call: ApplicationCall) {
         logger.info { "Received request to update user/donor's medical history" }
         RouteUtils.handleRoute(call, logger) {
-            val userId = ValidationUtils.validateIntParameter(call.parameters["id"], "user/donor ID")
+            val userId = extractAuthenticatedUserId(call)
             val medicalHistoryParams = call.receive<MedicalHistoryParams>()
             medicalHistoryService.updateMedicalHistory(userId, medicalHistoryParams)
         }
     }
 
     /**
-     * Handles the request to retrieve a user/donor's donations, with optional pagination.
+     * Handles the request to retrieve the authenticated user's donations, with optional pagination.
      *
-     * @param call The ApplicationCall containing the request details.
+     * @param call The ApplicationCall containing the request details with JWT token.
      */
-    suspend fun getUserDonations(call: ApplicationCall) {
+    suspend fun getDonations(call: ApplicationCall) {
         logger.info { "Received request to get user/donor's donations" }
         RouteUtils.handleRoute(call, logger) {
-            val userId = ValidationUtils.validateIntParameter(extractAuthenticatedUserId(call).toString(), "user/donor ID")
+            val userId = extractAuthenticatedUserId(call)
             val page = call.request.queryParameters["page"]?.toIntOrNull()
             val limit = call.request.queryParameters["limit"]?.toIntOrNull()
 
@@ -142,14 +144,14 @@ class UserDonorManagementController(
     }
 
     /**
-     * Handles the request to retrieve a user/donor's badges.
+     * Handles the request to retrieve the authenticated user's badges.
      *
-     * @param call The ApplicationCall containing the request details.
+     * @param call The ApplicationCall containing the request details with JWT token.
      */
-    suspend fun getUserBadges(call: ApplicationCall) {
+    suspend fun getBadges(call: ApplicationCall) {
         logger.info { "Received request to get user/donor's badges" }
         RouteUtils.handleRoute(call, logger) {
-            val userId = ValidationUtils.validateIntParameter(call.parameters["id"], "user/donor ID")
+            val userId = extractAuthenticatedUserId(call)
             userBadgeService.getUserBadgesByUserId(userId)
         }
     }
